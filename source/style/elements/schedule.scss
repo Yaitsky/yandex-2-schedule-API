@@ -1,0 +1,258 @@
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:35px 0 15px;
+
+  @include tablet {
+    flex-wrap: wrap;
+  }
+}
+
+.school-filter {
+  font-family: FiraSans-Regular;
+  font-size: 16px;
+  color:$black;
+
+  @include tablet {
+    width:100%;
+  }
+
+  &__select {
+    height:36px;
+    border:2px solid $yellow;
+    padding:0 10px;
+
+    &:focus {
+      outline:none;
+    }
+  }
+
+  &__option {
+    padding:5px 0;
+  }
+}
+
+.teacher-filter {
+  font-family: FiraSans-Regular;
+  font-size: 16px;
+  color:$black;
+
+  @include tablet {
+    width:100%;
+    text-align:right;
+    margin-top:15px;
+  }
+
+  &__text {
+    display:inline-block;
+  }
+
+  &__input {
+    margin-left:10px;
+    height:36px;
+    border:2px solid $yellow;
+    padding:0 10px;
+    width:275px;
+
+    &:focus {
+      outline:none;
+    }
+  }
+}
+
+.schedule {
+  width:100%;
+  margin-bottom:50px;
+
+  &__list {
+    width:100%;
+
+    p {
+      margin-top:20px;
+      font-family: FiraSans-Regular;
+      font-size:18px;
+    }
+  }
+
+  &__row {
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:12px 0;
+    font-family: FiraSans-Regular;
+    font-size:14px;
+
+    &:nth-child(even) {
+      background-color: $lightgrey;
+    }
+
+    @include tablet {
+      flex-wrap: wrap;
+    }
+
+    &--head {
+      font-family: FiraSans-Medium;
+      font-size:18px;
+      color:$blue;
+      padding:15px 0;
+      border-bottom: 3px solid $blue;
+
+      @include tablet {
+        display:none;
+      }
+    }
+  }
+
+  &__col {
+    text-align:center;
+    width:15%;
+    padding:0 5px;
+
+    @include tablet {
+      padding:10px 10px;
+      text-align: right;
+    }
+
+    &:before {
+      content: attr(data-label);
+      display:none;
+
+      @include tablet {
+        display:block;
+        float:left;
+        padding-right:20px;
+        text-transform: uppercase;
+        font-size:14px;
+        color:$blue;
+      }
+    }
+
+    &--medium {
+      width:20%;
+    }
+
+    &--wide {
+      width:40%;
+    }
+
+    span {
+      display: block;
+    }
+
+    @include tablet {
+      width:100%;
+    }
+  }
+
+  &__teacher {
+    display:block;
+    color:$blue;
+    cursor:pointer;
+
+      &:hover {
+        color:$red;
+      }
+  }
+
+  &__link {
+    color:$blue;
+    text-decoration: none;
+    display: block;
+
+    &:hover {
+      color:$red;
+    }
+  }
+
+  &__button {
+    border-radius: 5px;
+    color: $black;
+    border:2px solid $yellow;
+    text-decoration: none;
+    padding:4px 12px;
+
+    &:hover {
+      border:2px solid $red;
+      color:$red;
+    }
+  }
+}
+
+.teacher {
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background-color:$white;
+  width:640px;
+  padding:25px;
+  display:none;
+  box-shadow: 1px 2px 4px rgba(0,0,0,0.2);
+  border-radius: 5px;
+
+  @include tablet {
+    width:380px;
+  }
+
+  &__photo {
+    width:240px;
+    height:240px;
+    border-bottom: 4px solid $red;
+    float:left;
+  }
+
+  &__info {
+    width:320px;
+    margin-left:25px;
+    float:left;
+
+    @include tablet {
+      margin-left:0;
+      margin-top:20px;
+    }
+  }
+
+  &__name {
+    font-family: FiraSans-Medium;
+    font-size:30px;
+  }
+
+  &__job {
+    font-family: FiraSansExtraCondensed-Light;
+    font-size:22px;
+  }
+
+  &__text {
+    margin-top:15px;
+    font-family: FiraSans-Regular;
+    font-size:16px;
+  }
+
+  &__block {
+    text-align: right;
+  }
+
+  &__button {
+    background-color: $white;
+    margin-top: 20px;
+    border-radius: 5px;
+    color: $black;
+    border:2px solid $yellow;
+    text-decoration: none;
+    padding:4px 12px;
+    cursor:pointer;
+    font-family: FiraSans-Regular;
+    font-size:16px;
+
+    &:hover {
+      border:2px solid $red;
+      color:$red;
+    }
+
+    &:active {
+      outline: none;
+    }
+  }
+}

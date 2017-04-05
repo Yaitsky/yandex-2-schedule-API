@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.container {
+  width: 960px;
+  margin: 0 auto;
+  position:relative;
+
+
+  &--header {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+
+  @include laptop {
+    width:740px;
+  }
+
+  @include tablet {
+    width:90%;
+  }
+}
+
+html {
+
+  @include laptop {
+    font-size:15px;
+  }
+
+  @include tablet {
+    font-size:14px;
+  }
+
+  @include phone {
+    font-size:13px;
+  }
+}
+
+// Для float - блоков
+.clearfix::before,
+.clearfix::after {
+  content: "";
+  width: 100%;
+  clear: both;
+  display: block;
+}
+
+// Прибиваем футер
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.footer {
+  margin-top: auto;
+}
