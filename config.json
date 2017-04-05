@@ -1,0 +1,6 @@
+{
+    "port" : 8000,
+    "mongoose": {
+        "uri": "mongodb://schedule-user:schedule@ds135800.mlab.com:35800/yandex-schedule"
+    }
+}
