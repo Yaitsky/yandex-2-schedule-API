@@ -33,28 +33,99 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-app.post('/lectures', function(req, res) {
-    
-    console.log(req.body);
+//GET показать все лекции
+app.get('/lectures', function(req, res) {
+    return LecturesModel.find(function (err, lectures) {
+    if (!err) {
+        res.send(lectures);
+    } else {
+        res.statusCode = 500;
+        log.error('Internal error', res.statusCode,err.message);
+        return res.send({error: 'Server error'});
+    }   
+    });
+});
 
-    LecturesModel.find({classroom: req.body.classroom}, function (err, schools) {
-    res.json(schools);
+//POST добавить одну лекцию
+app.post('/lectures', function(req, res) {
+    var lecture = new LecturesModel({
+        school: req.body.school,
+        number: req.body.number,
+        title: req.body.title,
+        teacher: req.body.teacher,
+        date: req.body.date,
+        video: req.body.video,
+        classroom: req.body.classroom
     });
     
+    lecture.save(function (err) {
+        if (!err) {
+            log.info('lecture created');
+            return res.send({status: 'OK', lecture: lecture});
+        } else {
+            if (err.name == 'ValidationError') {
+                res.statusCode = 400;
+                res.send({error: 'Validation error'});
+            } else {
+                res.statusCode = 500;
+                res.send({error: 'Server error'});
+            }
+            log.error('Internal error', res.statusCode, err.message);
+        }
+    });
 });
 
-app.post('/lectures', function(req, res) {
-    res.send('This is not implemented now');
+//PUT изменить лекцию
+app.put('/lectures:title', function (req, res){
+    return LecturesModel.findOne({title: req.body.title}, function (err, lecture) {
+        if (!lecture) {
+            res.statusCode = 404;
+            return res.send({error: 'Not found'});
+        }
+
+        lecture.date = req.body.date;
+        lecture.classroom = req.body.classroom;
+        
+        return lecture.save(function (err) {
+            if (!err) {
+                log.info('lecture updated');
+                return res.send({status: 'OK', lecture: lecture});
+            } else {
+                if (err.name == 'ValidationError') {
+                    res.statusCode = 400;
+                    res.send({error: 'Validation error'});
+                } else {
+                    res.statusCode = 500;
+                    res.send({error: 'Server error'});
+                }
+                log.error('Internal error', res.statusCode, err.message);
+            }
+        })
+    }) 
 });
 
-app.get('/lectures/:id', function(req, res) {
-    res.send('This is not implemented now');
-});
+//DELETE удалить лекцию по названию
+app.delete('/lectures:title', function (req, res){
+    return LecturesModel.findOne({title: req.body.title}, function (err, lecture) {
+        if (!lecture) {
+            res.statusCode = 404;
+            return res.send({error: 'Not found'});
+        }
 
-app.put('/lectures/:id', function (req, res){
-    res.send('This is not implemented now');    
-});
-
-app.delete('/lectures/:id', function (req, res){
-    res.send('This is not implemented now');
+        return lecture.remove(function (err) {
+            if (!err) {
+                log.info('lecture deleted');
+                return res.send({status: 'OK'});
+            } else {
+                if (err.name == 'ValidationError') {
+                    res.statusCode = 400;
+                    res.send({error: 'Validation error'});
+                } else {
+                    res.statusCode = 500;
+                    res.send({error: 'Server error'});
+                }
+                log.error('Internal error', res.statusCode, err.message);
+            }
+        })
+    })
 });
