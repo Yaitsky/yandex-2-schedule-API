@@ -1,40 +1,148 @@
 div.container
     div.filters
-        div.school-filter
-            select.school-filter__select
-                option.school-filter__option(value="Все школы") Все школы
-                option.school-filter__option(value="Школа разработки интерфейсов") Школа разработки интерфейсов
-                option.school-filter__option(value="Школа мобильной разработки") Школа мобильной разработки
-                option.school-filter__option(value="Школа мобильного дизайна") Школа мобильного дизайна
-        div.teacher-filter
-            div.teacher-filter__text Поиск по учителю:
-            input.teacher-filter__input(type="text", name="teacher", placeholder="Введите имя или фамилию")
+        div.filter-block
+            select.filter-block__select
+                option.filter-block__option(value="Редактировать список школ") Редактировать список школ
+                option.filter-block__option(value="Редактировать список аудиторий") Редактировать список аудиторий
+                option.filter-block__option(value="Редактировать расписание занятий") Редактировать расписание занятий
+    
+    div.content
+        div.schools
+            div.schools__add-block
+                button.schools__add-button Добавить школу
+            div.schools__row.schools__row--head
+                div.schools__col.schools__col--wide Название школы
+                div.schools__col.schools__col--small Количество учеников
+            div.schools__list
+                div.schools__row
+                    div.schools__col.schools__col--wide Школа разработки интерфейсов
+                    div.schools__col.schools__col--small 100
+                    div.buttons
+                        div.buttons__item.buttons__item--update
+                            i.fa.fa-pencil.buttons__icon(aria-hidden="true")
+                        div.buttons__item.buttons__item--delete
+                            i.fa.fa-times.buttons__icon(aria-hidden="true")
+                div.schools__row
+                    div.schools__col.schools__col--wide Школа разработки интерфейсов
+                    div.schools__col.schools__col--small 100
+                    div.buttons
+                        div.buttons__item.buttons__item--update
+                            i.fa.fa-pencil.buttons__icon(aria-hidden="true")
+                        div.buttons__item.buttons__item--delete
+                            i.fa.fa-times.buttons__icon(aria-hidden="true")
+        div.classrooms
+            div.classrooms__add-block
+                button.classrooms__add-button Добавить аудиторию
+            div.classrooms__row.classrooms__row--head
+                div.classrooms__col.classrooms__col--wide Название аудитории
+                div.classrooms__col.classrooms__col--wide Местоположение
+                div.classrooms__col.classrooms__col--small Количество учеников
+            div.classrooms__list
+                div.classrooms__row
+                    div.classrooms__col.classrooms__col--wide 1001
+                    div.classrooms__col.classrooms__col--wide Западный корпус
+                    div.classrooms__col.classrooms__col--small 109
+                    div.buttons
+                        div.buttons__item.buttons__item--update
+                            i.fa.fa-pencil.buttons__icon(aria-hidden="true")
+                        div.buttons__item.buttons__item--delete
+                            i.fa.fa-times.buttons__icon(aria-hidden="true")
+                div.classrooms__row
+                    div.classrooms__col.classrooms__col--wide 1003
+                    div.classrooms__col.classrooms__col--wide Восточный корпус
+                    div.classrooms__col.classrooms__col--small 115
+                    div.buttons
+                        div.buttons__item.buttons__item--update
+                            i.fa.fa-pencil.buttons__icon(aria-hidden="true")
+                        div.buttons__item.buttons__item--delete
+                            i.fa.fa-times.buttons__icon(aria-hidden="true")
+    
+        div.schedule
+            div.search-block
+                div.search-block__text Поиск лекции в указанный период
+                input.search-block__input(type="text", placeholder="Начало")
+                input.search-block__input(type="text", placeholder="Конец")
+                button.search-block__button Поиск
+                
+            div.schedule__add-block
+                    button.schedule__add-button Добавить лекцию        
+            div.schedule__row.schedule__row--head
+                div.schedule__col.schedule__col--wide Название лекции
+                div.schedule__col.schedule__col--medium Школа
+                div.schedule__col Учитель
+                div.schedule__col Аудитория
+                div.schedule__col Дата
+            div.schedule__list
+                div.schedule__row
+                    div.schedule__col.schedule__col--wide Вступительная лекция
+                    div.schedule__col.schedule__col--medium Школа разработки интерфейсов
+                    div.schedule__col Дмитрий Душкин
+                    div.schedule__col 1001
+                    div.schedule__col 23.01.2017
+                    div.buttons
+                        div.buttons__item.buttons__item--update
+                            i.fa.fa-pencil.buttons__icon(aria-hidden="true")
+                        div.buttons__item.buttons__item--delete
+                            i.fa.fa-times.buttons__icon(aria-hidden="true")
+                div.schedule__row
+                    div.schedule__col.schedule__col--wide Вступительная лекция 2
+                    div.schedule__col.schedule__col--medium Школа разработки интерфейсов
+                    div.schedule__col Дмитрий Душкин
+                    div.schedule__col 1001
+                    div.schedule__col 23.01.2017
+                    div.buttons
+                        div.buttons__item.buttons__item--update
+                            i.fa.fa-pencil.buttons__icon(aria-hidden="true")
+                        div.buttons__item.buttons__item--delete
+                            i.fa.fa-times.buttons__icon(aria-hidden="true")
 
-    div.schedule
-        div.schedule__row.schedule__row--head
-            div.schedule__col.schedule__col--wide Название лекции
-            div.schedule__col.schedule__col--medium Школа
-            div.schedule__col Учитель
-            div.schedule__col Аудитория
-            div.schedule__col Дата
-        div.schedule__list
+    div.modal.modal-school
+        div.modal__title Редактирование школы
+        div.modal__row
+            div.modal__input-text Название
+            input.modal__input(type="text", placeholder="Название школы")
+        div.modal__row
+            div.modal__input-text Количество студентов
+            input.modal__input(type="text", placeholder="Количество студентов")    
+        div.modal__row.modal__row--buttons
+            button.modal__button.modal__button--cancel Отмена
+            button.modal__button.modal__button--ok Применить
+    
+    div.modal.modal-classroom
+        div.modal__title Редактирование аудитории
+        div.modal__row
+            div.modal__input-text Название
+            input.modal__input(type="text", placeholder="Название аудитории")
+        div.modal__row
+            div.modal__input-text Местоположение
+            input.modal__input(type="text", placeholder="Количество студентов")
+        div.modal__row
+            div.modal__input-text Количество студентов
+            input.modal__input(type="text", placeholder="Количество студентов")    
+        div.modal__row.modal__row--buttons
+            button.modal__button.modal__button--cancel Отмена
+            button.modal__button.modal__button--ok Применить
 
-    button#clickGet Получить GET
-    button#clickPost Добавить POST
-    button#clickPut Изменить PUT
-    button#clickDelete Удалить DELETE
-    br
-    button#testClick Тест GET
-    button#testPost Тест POST
-    button#testUpdate Тест UPDATE
-    button#testDelete Тест DELETE
-
-
-    div.teacher
-        img.teacher__photo(src="", alt="Фото учителя")
-        div.teacher__info
-            div.teacher__name
-            div.teacher__job
-            div.teacher__text
-            div.teacher__block
-                button.teacher__button Закрыть
+    div.modal.modal-lecture
+        div.modal__title Редактирование лекции
+        div.modal__row
+            div.modal__input-text Название
+            input.modal__input(type="text", placeholder="Название лекции")
+        div.modal__row
+            div.modal__input-text Школа
+            input.modal__input(type="text", placeholder="Название школы")
+        div.modal__row
+            div.modal__input-text Учитель
+            input.modal__input(type="text", placeholder="Учитель")
+        div.modal__row
+            div.modal__input-text Аудитория
+            input.modal__input(type="text", placeholder="Аудитория")  
+        div.modal__row
+            div.modal__input-text Дата
+            input.modal__input(type="text", placeholder="Дата")  
+        div.modal__row
+            div.modal__input-text Запись лекции
+            input.modal__input(type="text", placeholder="Запись лекции")                 
+        div.modal__row.modal__row--buttons
+            button.modal__button.modal__button--cancel Отмена
+            button.modal__button.modal__button--ok Применить

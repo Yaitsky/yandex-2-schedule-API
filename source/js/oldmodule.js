@@ -129,3 +129,36 @@ module.exports = {
         this.teacherWindow.style.display = 'none';
     }
 };
+
+
+// var testGET = document.querySelector('#testClick');
+//         var testPOST = document.querySelector('#testPost');
+//         var testUPDATE = document.querySelector('#testUpdate');
+//         var testDELETE = document.querySelector('#testDelete');
+
+//         var data = JSON.stringify({    
+//                 school: ["Школа разработки интерфейсов", "Школа мобильного дизайна"],
+//                 number: "Вступительная лекция",
+//                 title: "test",
+//                 teacher: ["Дмитрий Душкин"],
+//                 date: "20.10.2016",
+//                 video: "https://events.yandex.ru/lib/talks/4162/",
+//                 classroom: "1001"
+//         });
+//         var data2 = JSON.stringify({
+//                 school: ["Школа разработки интерфейсов", "Школа мобильного дизайна"],
+//                 number: "Вступительная лекция",
+//                 title: "test",
+//                 teacher: ["Дмитрий Душкин"],
+//                 date: "12.12.2012",
+//                 video: "https://events.yandex.ru/lib/talks/4162/",
+//                 classroom: "100100000"
+//         });
+//         var data3 = JSON.stringify({
+//             title: "test"
+//         });
+    
+//         testGET.addEventListener('click', this.lectures.showAll);
+//         testPOST.addEventListener('click', this.lectures.addNew.bind(null, data));
+//         testUPDATE.addEventListener('click', this.lectures.update.bind(null, data2));
+//         testDELETE.addEventListener('click', this.lectures.delete.bind(null, data3));

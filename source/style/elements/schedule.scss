@@ -9,7 +9,8 @@
   }
 }
 
-.school-filter {
+//FILTER
+.filter-block {
   font-family: FiraSans-Regular;
   font-size: 16px;
   color:$black;
@@ -33,27 +34,59 @@
   }
 }
 
-.teacher-filter {
-  font-family: FiraSans-Regular;
-  font-size: 16px;
-  color:$black;
+.search-block {
+  display:flex;
+  justify-content: flex-start;
+  padding:10px 0;
 
-  @include tablet {
-    width:100%;
-    text-align:right;
-    margin-top:15px;
-  }
 
   &__text {
-    display:inline-block;
+    line-height:30px;
+    font-family: FiraSans-Regular;
+    font-size: 16px;
+    color:$black;
+    margin-right:30px;
   }
 
   &__input {
-    margin-left:10px;
-    height:36px;
+    margin-right:10px;
+    height:30px;
     border:2px solid $yellow;
     padding:0 10px;
-    width:275px;
+    width:100px;
+    font-size:14px;
+
+    &:focus {
+      outline:none;
+    }
+  }
+
+  &__button {
+    color: $black;
+    border:2px solid $yellow;
+    text-decoration: none;
+    padding:4px 12px;
+    background-color:$white;
+    margin-left:10px;
+
+    &--cancel {
+      border-color: transparent;
+
+      &:hover {
+        border-color:transparent !important;
+        text-decoration: underline;
+      }
+    }
+
+    &:hover {
+      border:2px solid $red;
+      color:$red;
+      cursor:pointer;
+    }
+
+    &:active {
+      outline:none;
+    }
 
     &:focus {
       outline:none;
@@ -61,17 +94,258 @@
   }
 }
 
+//BUTTONS
+.buttons {
+  position:absolute;
+  top:0;
+  right:0;
+  margin-right:20px;
+  z-index:10;
+  top:50%;
+  transform:translate(0, -50%);
+  font-size:0;
+  display:none;
+
+  &__item {
+    font-size:18px;
+    border:2px solid;
+    width:32px;
+    height:32px;
+    color:$white;
+    border-radius:50%;
+    display:inline-block;
+    position:relative;
+    background-color:$white;
+    cursor:pointer;
+
+    &--update {
+      border-color:$yellow;
+      color:$yellow;
+      margin-right:5px;
+
+      &:hover {
+        color:$white;
+        background-color: $yellow;
+      }
+    }
+
+    &--delete {
+      border-color:$red;
+      color:$red;
+
+      &:hover {
+        color:$white;
+        background-color: $red;
+      }
+    }
+  }
+   &__icon {
+      position:absolute;
+      display:block;
+      top:50%;
+      left:50%;
+      transform:translate(-50%, -50%);
+    }
+}
+
+//SCHOOLS
+.schools {
+  width:100%;
+  margin-bottom:50px;
+
+  &__list {
+    width:100%;
+  }
+
+  &__add-block {
+    width:100%;
+    display:flex;
+    justify-content: flex-end;
+    padding:15px;
+  }
+
+  &__add-button {
+    border-radius: 5px;
+    color: $black;
+    border:2px solid $yellow;
+    text-decoration: none;
+    padding:4px 12px;
+    background-color:$white;
+
+    &:hover {
+      border:2px solid $red;
+      color:$red;
+      cursor:pointer;
+    }
+
+    &:active {
+      outline:none;
+    }
+
+    &:focus {
+      outline:none;
+    }
+  }
+
+  &__row {
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+    align-items: center;
+    padding:12px 0;
+    font-family: FiraSans-Regular;
+    font-size:14px;
+    position:relative;
+
+    &:hover .buttons {
+      display:block;
+    }
+
+    &:nth-child(even) {
+      background-color: $lightgrey;
+    }
+
+    &--head {
+      font-family: FiraSans-Medium;
+      font-size:18px;
+      color:$blue;
+      padding:15px 0;
+      border-bottom: 3px solid $blue;
+      background-color:$white !important;
+    }
+  }
+
+  &__col {
+    text-align:center;
+    padding:0 5px;
+
+    &--wide {
+      width:75%;
+    }
+
+    &--small {
+      width:25%;
+    }
+    }
+}
+
+//CLASSROOMS
+.classrooms {
+  width:100%;
+  margin-bottom:50px;
+
+  &__list {
+    width:100%;
+  }
+
+  &__add-block {
+    width:100%;
+    display:flex;
+    justify-content: flex-end;
+    padding:15px;
+  }
+
+  &__add-button {
+    border-radius: 5px;
+    color: $black;
+    border:2px solid $yellow;
+    text-decoration: none;
+    padding:4px 12px;
+    background-color:$white;
+
+    &:hover {
+      border:2px solid $red;
+      color:$red;
+      cursor:pointer;
+    }
+
+    &:active {
+      outline:none;
+    }
+
+    &:focus {
+      outline:none;
+    }
+  }
+
+  &__row {
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+    align-items: center;
+    padding:12px 0;
+    font-family: FiraSans-Regular;
+    font-size:14px;
+    position:relative;
+
+    &:hover .buttons {
+      display:block;
+    }
+
+    &:nth-child(even) {
+      background-color: $lightgrey;
+    }
+
+    &--head {
+      font-family: FiraSans-Medium;
+      font-size:18px;
+      color:$blue;
+      padding:15px 0;
+      border-bottom: 3px solid $blue;
+      background-color:$white !important;
+    }
+  }
+
+  &__col {
+    text-align:center;
+    padding:0 5px;
+
+    &--wide {
+      width:40%;
+    }
+
+    &--small {
+      width:20%;
+    }
+    }
+}
+
+//LECTURES
 .schedule {
   width:100%;
   margin-bottom:50px;
 
   &__list {
     width:100%;
+  }
 
-    p {
-      margin-top:20px;
-      font-family: FiraSans-Regular;
-      font-size:18px;
+  &__add-block {
+    width:100%;
+    display:flex;
+    justify-content: flex-end;
+    padding:15px;
+  }
+
+  &__add-button {
+    border-radius: 5px;
+    color: $black;
+    border:2px solid $yellow;
+    text-decoration: none;
+    padding:4px 12px;
+    background-color:$white;
+
+    &:hover {
+      border:2px solid $red;
+      color:$red;
+      cursor:pointer;
+    }
+
+    &:active {
+      outline:none;
+    }
+
+    &:focus {
+      outline:none;
     }
   }
 
@@ -83,13 +357,14 @@
     padding:12px 0;
     font-family: FiraSans-Regular;
     font-size:14px;
+    position:relative;
+
+    &:hover .buttons {
+      display:block;
+    }
 
     &:nth-child(even) {
       background-color: $lightgrey;
-    }
-
-    @include tablet {
-      flex-wrap: wrap;
     }
 
     &--head {
@@ -98,10 +373,7 @@
       color:$blue;
       padding:15px 0;
       border-bottom: 3px solid $blue;
-
-      @include tablet {
-        display:none;
-      }
+      background-color: $white !important;
     }
   }
 
@@ -109,25 +381,6 @@
     text-align:center;
     width:15%;
     padding:0 5px;
-
-    @include tablet {
-      padding:10px 10px;
-      text-align: right;
-    }
-
-    &:before {
-      content: attr(data-label);
-      display:none;
-
-      @include tablet {
-        display:block;
-        float:left;
-        padding-right:20px;
-        text-transform: uppercase;
-        font-size:14px;
-        color:$blue;
-      }
-    }
 
     &--medium {
       width:20%;
@@ -139,10 +392,6 @@
 
     span {
       display: block;
-    }
-
-    @include tablet {
-      width:100%;
     }
   }
 
@@ -180,79 +429,98 @@
   }
 }
 
-.teacher {
+//MODALS
+.modal {
   position:fixed;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
   background-color:$white;
-  width:640px;
+  width:480px;
   padding:25px;
-  display:none;
+  display:block;
   box-shadow: 1px 2px 4px rgba(0,0,0,0.2);
   border-radius: 5px;
+  font-family: FiraSans-Regular;
+  font-size: 16px;
+  color:$black;
 
-  @include tablet {
-    width:380px;
+  &-school {
+    display:none;
   }
 
-  &__photo {
-    width:240px;
-    height:240px;
-    border-bottom: 4px solid $red;
-    float:left;
+  &-classroom {
+    display:none;
   }
 
-  &__info {
-    width:320px;
-    margin-left:25px;
-    float:left;
+  &-lecture {
+    display:none;
+  }
 
-    @include tablet {
-      margin-left:0;
+  &__title {
+    color:$blue;
+    font-family: FiraSans-Medium;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom:2px solid $blue;
+  }
+
+  &__row {
+    display:flex;
+    justify-content: space-between;
+    padding:5px 0;
+
+    &--buttons {
       margin-top:20px;
     }
   }
 
-  &__name {
-    font-family: FiraSans-Medium;
-    font-size:30px;
+  &__input-text {
+    line-height:30px;
   }
 
-  &__job {
-    font-family: FiraSansExtraCondensed-Light;
-    font-size:22px;
-  }
+  &__input {
+    margin-left:10px;
+    height:30px;
+    border:2px solid $yellow;
+    padding:0 10px;
+    width:50%;
+    font-size:14px;
 
-  &__text {
-    margin-top:15px;
-    font-family: FiraSans-Regular;
-    font-size:16px;
-  }
-
-  &__block {
-    text-align: right;
+    &:focus {
+      outline:none;
+    }
   }
 
   &__button {
-    background-color: $white;
-    margin-top: 20px;
     border-radius: 5px;
     color: $black;
     border:2px solid $yellow;
     text-decoration: none;
     padding:4px 12px;
-    cursor:pointer;
-    font-family: FiraSans-Regular;
-    font-size:16px;
+    background-color:$white;
+
+    &--cancel {
+      border-color: transparent;
+
+      &:hover {
+        border-color:transparent !important;
+        text-decoration: underline;
+      }
+    }
 
     &:hover {
       border:2px solid $red;
       color:$red;
+      cursor:pointer;
     }
 
     &:active {
-      outline: none;
+      outline:none;
+    }
+
+    &:focus {
+      outline:none;
     }
   }
 }
