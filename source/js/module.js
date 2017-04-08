@@ -1,131 +1,183 @@
-module.exports = {
+var scheduleAPI = {
     init: function () {
-        //объявляем переменные
-        var self = this;
-        this.renderLectureLast = require('./templates/lecture-last');
-        this.renderLectureFuture = require('./templates/lecture-future');
-        this.lecturesArray = require('./data/lectures.json');
-        this.teachersArray = require('./data/teachers.json');
-        this.lecturesList = document.querySelector('.schedule__list');
-        this.teacherWindow = document.querySelector('.teacher');
-        this.selectSchoolBlock = document.querySelector('.school-filter__select');
-        this.searchTeacherBlock = document.querySelector('.teacher-filter__input');
+        var testGET = document.querySelector('#testClick');
+        var testPOST = document.querySelector('#testPost');
+        var testUPDATE = document.querySelector('#testUpdate');
+        var testDELETE = document.querySelector('#testDelete');
 
-        //рендерим расписание
-        this.renderSchedule(this.lecturesArray);
-
-        //назначаем обработчики на кнопку закрытия окна учителя
-        var closeTeacherWindowButton = this.teacherWindow.querySelector('.teacher__button');
-        closeTeacherWindowButton.addEventListener('click', this.closeTeacherWindowButton.bind(self));
-
-        //назначаем обработчик на изменение фильтра по школам
-        this.selectSchoolBlock.addEventListener('change', this.renderFilteredBySchool.bind(self));
-
-        //назначаем обработчик на поиск по учителю
-        this.searchTeacherBlock.addEventListener('keyup', this.filterByTeacher.bind(self));
+        var data = JSON.stringify({    
+                school: ["Школа разработки интерфейсов", "Школа мобильного дизайна"],
+                number: "Вступительная лекция",
+                title: "test",
+                teacher: ["Дмитрий Душкин"],
+                date: "20.10.2016",
+                video: "https://events.yandex.ru/lib/talks/4162/",
+                classroom: "1001"
+        });
+        var data2 = JSON.stringify({
+                school: ["Школа разработки интерфейсов", "Школа мобильного дизайна"],
+                number: "Вступительная лекция",
+                title: "test",
+                teacher: ["Дмитрий Душкин"],
+                date: "12.12.2012",
+                video: "https://events.yandex.ru/lib/talks/4162/",
+                classroom: "100100000"
+        });
+        var data3 = JSON.stringify({
+            title: "test"
+        });
+    
+        testGET.addEventListener('click', this.lectures.showAll);
+        testPOST.addEventListener('click', this.lectures.addNew.bind(null, data));
+        testUPDATE.addEventListener('click', this.lectures.update.bind(null, data2));
+        testDELETE.addEventListener('click', this.lectures.delete.bind(null, data3));
     },
-    filteredArray: [],
-    filteredByTeacherArray: [],
-    isMatching: function (full, chunk) {
-        var string = full.toLowerCase(),
-            substring = chunk.toLowerCase();
-
-        if (string.indexOf(substring) + 1) {
-            return true;
-        }
-
-        return false;
-    },
-    renderSchedule: function (array) {
-        var self = this;
-        this.lecturesList.innerHTML = '';
-        for (var i = 0; i < array.length; i++) {
-            if (array[i].video != "") {
-                var item = this.renderLectureLast(array[i]);
-                this.lecturesList.innerHTML += item;
-            } else {
-                var item = this.renderLectureFuture(array[i]);
-                this.lecturesList.innerHTML += item;
+    sendRequest: function (method, request, data) {
+        return new Promise(function (resolve, reject) {
+            if (!data) {
+                data = null;
             }
-        }
-        //назначаем обработчики на имена учителей
-        var teachers = this.lecturesList.querySelectorAll('.schedule__teacher');
-        for (var i = 0; i < teachers.length; i++) {
-            teachers[i].addEventListener('click', this.showTeacherWindow.bind(self));
-        }
-    },
-    renderFilteredBySchool: function () {
-        var selectedIndex = this.selectSchoolBlock.options.selectedIndex;
-        var selectedValue = this.selectSchoolBlock.options[selectedIndex].value;
+            var xhr = new XMLHttpRequest();
 
-        this.filteredArray.length = 0;
+            xhr.open(method, request);
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.responseType = 'json';
+            xhr.send(data);
 
-        if (selectedValue == 'Все школы') {
-            this.renderSchedule(this.lecturesArray);
-            this.searchTeacherBlock.value = '';
-        } else {
-            for (var i = 0; i < this.lecturesArray.length; i++) {
-                var schoolName = this.lecturesArray[i].school;
-                if (schoolName.indexOf(selectedValue) > -1) {
-                    this.filteredArray.push(this.lecturesArray[i]);
+            xhr.addEventListener('load', function () {
+                if (xhr.status != 200) {
+                    reject(xhr.status);
+                } else {
+                    resolve(xhr.response);
                 }
-            }
-            console.log()
-            this.renderSchedule(this.filteredArray);
-            this.searchTeacherBlock.value = '';
+            })
+        })
+    },
+    schools: {
+        showAll: function () {
+            scheduleAPI.sendRequest('GET', '/schools').
+            then(function (response) {
+                console.log(response);
+            },
+            function (response) {
+                console.log('Не удалось сделать запрос');
+                console.log(response);
+            });
+        },
+        addNew: function (data) {
+            scheduleAPI.sendRequest('POST', '/schools', data).
+            then(function (response) {
+                console.log(response);
+            },
+            function (response) {
+                console.log('Не удалось сделать запрос');
+                console.log(response);
+            });
+        },
+        update: function (data) {
+            scheduleAPI.sendRequest('PUT', '/schools:title', data).
+            then(function (response) {
+                console.log(response);
+            },
+            function () {
+                console.log('Не удалось сделать запрос');
+            });
+        },
+        delete: function (data) {
+            scheduleAPI.sendRequest('DELETE', '/schools:title', data).
+            then(function (response) {
+                console.log(response);
+            },
+            function (response) {
+                console.log('Не удалось сделать запрос');
+                console.log(response);
+            });
         }
     },
-    filterByTeacher: function () {
-        var value = this.searchTeacherBlock.value;
-        this.filteredByTeacherArray.length = 0;
-
-        if (this.filteredArray.length != 0) {
-            for (var i = 0; i < this.filteredArray.length; i++) {
-                var teachersName = this.filteredArray[i].teacher.join();
-                if (this.isMatching(teachersName, value)) {
-                    this.filteredByTeacherArray.push(this.filteredArray[i]);
-                }
-            }
-            if (this.filteredByTeacherArray.length != 0) {
-                this.renderSchedule(this.filteredByTeacherArray);
-            } else {
-                this.lecturesList.innerHTML = '<p>По Вашему запросу лекций не найдено</p>';
-            }
-        } else {
-            for (var i = 0; i < this.lecturesArray.length; i++) {
-                var teachersName = this.lecturesArray[i].teacher.join();
-                if (this.isMatching(teachersName, value)) {
-                    this.filteredByTeacherArray.push(this.lecturesArray[i]);
-                }
-            }
-            if (this.filteredByTeacherArray.length != 0) {
-                this.renderSchedule(this.filteredByTeacherArray);
-            } else {
-                this.lecturesList.innerHTML = '<p>По Вашему запросу лекций не найдено</p>';
-            }
+    classrooms: {
+        showAll: function () {
+            scheduleAPI.sendRequest('GET', '/classrooms').
+            then(function (response) {
+                console.log(response);
+            },
+            function (response) {
+                console.log('Не удалось сделать запрос');
+                console.log(response);
+            });
+        },
+        addNew: function (data) {
+            scheduleAPI.sendRequest('POST', '/classrooms', data).
+            then(function (response) {
+                console.log(response);
+            },
+            function (response) {
+                console.log('Не удалось сделать запрос');
+                console.log(response);
+            });
+        },
+        update: function (data) {
+            scheduleAPI.sendRequest('PUT', '/classrooms:title', data).
+            then(function (response) {
+                console.log(response);
+            },
+            function (response) {
+                console.log('Не удалось сделать запрос');
+                console.log(response);
+            });
+        },
+        delete: function (data) {
+            scheduleAPI.sendRequest('DELETE', '/classrooms:title', data).
+            then(function (response) {
+                console.log(response);
+            },
+            function (response) {
+                console.log('Не удалось сделать запрос');
+                console.log(response);
+            });
         }
     },
-    showTeacherWindow: function (e) {
-        var teacherName = e.target.innerText;
-        var photoBlock = this.teacherWindow.querySelector('.teacher__photo'),
-            nameBlock = this.teacherWindow.querySelector('.teacher__name'),
-            jobBlock = this.teacherWindow.querySelector('.teacher__job'),
-            infoBlock = this.teacherWindow.querySelector('.teacher__text');
-
-        for (var i = 0; i < this.teachersArray.length; i++) {
-            if (teacherName === this.teachersArray[i].name) {
-                photoBlock.setAttribute('src', this.teachersArray[i].photo);
-                nameBlock.innerText = this.teachersArray[i].name;
-                jobBlock.innerText = this.teachersArray[i].job;
-                infoBlock.innerText = this.teachersArray[i].info;
-                this.teacherWindow.style.display = 'block';
-
-                return;
-            }
+    lectures: {
+        showAll: function () {
+            scheduleAPI.sendRequest('GET', '/lectures').
+            then(function (response) {
+                console.log(response);
+            },
+            function (response) {
+                console.log('Не удалось сделать запрос');
+                console.log(response);
+            });
+        },
+        addNew: function (data) {
+            scheduleAPI.sendRequest('POST', '/lectures', data).
+            then(function (response) {
+                console.log(response);
+            },
+            function (response) {
+                console.log('Не удалось сделать запрос');
+                console.log(response);
+            });
+        },
+        update: function (data) {
+            scheduleAPI.sendRequest('PUT', '/lectures:title', data).
+            then(function (response) {
+                console.log(response);
+            },
+            function (response) {
+                console.log('Не удалось сделать запрос');
+                console.log(response);
+            });
+        },
+        delete: function (data) {
+            scheduleAPI.sendRequest('DELETE', '/lectures:title', data).
+            then(function (response) {
+                console.log(response);
+            },
+            function (response) {
+                console.log('Не удалось сделать запрос');
+                console.log(response);
+            });
         }
-
-    },
-    closeTeacherWindowButton: function () {
-        this.teacherWindow.style.display = 'none';
     }
 };
+
+module.exports = scheduleAPI;

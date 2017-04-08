@@ -13,56 +13,82 @@ app.listen(config.get('port'), function  () {
     log.info('Express server is listening on port', config.get('port'));
 });
 
-// app.use(function(req, res, next){
-//     res.status(404);
-//     log.debug('Not found URL: %s',req.url);
-//     res.send({ error: 'Not found' });
-//     return;
-// });
-
-// app.use(function(err, req, res, next){
-//     res.status(err.status || 500);
-//     log.error('Internal error(%d): %s',res.statusCode,err.message);
-//     res.send({ error: err.message });
-//     return;
-// });
-
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
 app.use(bodyParser.json());
 
-//GET показать все лекции
-app.get('/lectures', function(req, res) {
-    return LecturesModel.find(function (err, lectures) {
+//GET показать все лекции/школы/аудитории
+function getLists (req, res, name) {
+    var itemModel;
+    if (name == "lectures") {
+        itemModel = LecturesModel;
+    } else if (name == "schools") {
+        itemModel = SchoolsModel;
+    } else {
+        itemModel = ClassroomsModel;
+    }
+
+    return itemModel.find(function (err, list) {
     if (!err) {
-        res.send(lectures);
+        res.send(list);
     } else {
         res.statusCode = 500;
         log.error('Internal error', res.statusCode,err.message);
         return res.send({error: 'Server error'});
     }   
     });
+}
+
+app.get('/lectures', function (req, res) {
+    return getLists(req, res, "lectures");
 });
 
-//POST добавить одну лекцию
-app.post('/lectures', function(req, res) {
-    var lecture = new LecturesModel({
-        school: req.body.school,
-        number: req.body.number,
-        title: req.body.title,
-        teacher: req.body.teacher,
-        date: req.body.date,
-        video: req.body.video,
-        classroom: req.body.classroom
-    });
-    
-    lecture.save(function (err) {
+app.get('/schools', function (req, res) {
+    return getLists(req, res, "schools");
+});
+
+app.get('/classrooms', function (req, res) {
+    return getLists(req, res, "classrooms");
+});
+
+//POST добавить лекцию/школу/аудиторию
+function postNewItem (req, res, name) {
+    var itemModel;
+    var item;
+    if (name == "lectures") {
+        itemModel = LecturesModel;
+        item = new itemModel({
+            school: req.body.school,
+            number: req.body.number,
+            title: req.body.title,
+            teacher: req.body.teacher,
+            date: req.body.date,
+            video: req.body.video,
+            classroom: req.body.classroom
+        });
+    } else if (name == "schools") {
+        itemModel = SchoolsModel;
+        item = new itemModel({
+            title: req.body.title,
+            count: req.body.count
+        });
+    } else {
+        itemModel = ClassroomsModel;
+        item = new itemModel({
+            title: req.body.title,
+            count: req.body.count,
+            location: req.body.location
+        });
+    }
+
+    item.save(function (err) {
         if (!err) {
-            log.info('lecture created');
-            return res.send({status: 'OK', lecture: lecture});
+            log.info('item created');
+            return res.send({status: 'OK', item: item});
         } else {
+            log.error(err);
             if (err.name == 'ValidationError') {
                 res.statusCode = 400;
                 res.send({error: 'Validation error'});
@@ -73,23 +99,55 @@ app.post('/lectures', function(req, res) {
             log.error('Internal error', res.statusCode, err.message);
         }
     });
+}
+
+app.post('/lectures', function (req, res) {
+    return postNewItem(req, res, "lectures");
 });
 
-//PUT изменить лекцию
-app.put('/lectures:title', function (req, res){
-    return LecturesModel.findOne({title: req.body.title}, function (err, lecture) {
-        if (!lecture) {
+app.post('/schools', function (req, res) {
+    return postNewItem(req, res, "schools");
+});
+
+app.post('/classrooms', function (req, res) {
+    return postNewItem(req, res, "classrooms");
+});
+
+//PUT изменить лекцию/школу/аудиторию
+function updateItem (req, res, name) {
+    var itemModel;
+    if (name == "lectures") {
+        itemModel = LecturesModel;
+    } else if (name == "schools") {
+        itemModel = SchoolsModel;
+    } else {
+        itemModel = ClassroomsModel;
+    }
+
+    return itemModel.findOne({title: req.body.title}, function (err, item) {
+        if (!item) {
             res.statusCode = 404;
             return res.send({error: 'Not found'});
         }
 
-        lecture.date = req.body.date;
-        lecture.classroom = req.body.classroom;
+        if (name == "lectures") {
+            item.school = req.body.school;
+            item.number = req.body.number;
+            item.teacher = req.body.teacher;
+            item.date = req.body.date;
+            item.video = req.body.video;
+            item.classroom = req.body.classroom;
+        } else if (name == "schools") {
+            item.count = req.body.count;
+        } else {
+            item.count = req.body.count;
+            item.location = req.body.location;
+        }
         
-        return lecture.save(function (err) {
+        return item.save(function (err) {
             if (!err) {
-                log.info('lecture updated');
-                return res.send({status: 'OK', lecture: lecture});
+                log.info('item updated');
+                return res.send({status: 'OK', item: item});
             } else {
                 if (err.name == 'ValidationError') {
                     res.statusCode = 400;
@@ -102,19 +160,40 @@ app.put('/lectures:title', function (req, res){
             }
         })
     }) 
+}
+
+app.put('/lectures:title', function (req, res) {
+    return updateItem(req, res, "lectures");
 });
 
-//DELETE удалить лекцию по названию
-app.delete('/lectures:title', function (req, res){
-    return LecturesModel.findOne({title: req.body.title}, function (err, lecture) {
-        if (!lecture) {
+app.put('/schools:title', function (req, res) {
+    return updateItem(req, res, "schools");
+});
+
+app.put('/classrooms:title', function (req, res) {
+    return updateItem(req, res, "classrooms");
+});
+
+//DELETE удалить лекцию/школу/аудиторию
+function deleteItem (req, res, name) {
+    var itemModel;
+    if (name == "lectures") {
+        itemModel = LecturesModel;
+    } else if (name == "schools") {
+        itemModel = SchoolsModel;
+    } else {
+        itemModel = ClassroomsModel;
+    }
+
+    return itemModel.findOne({title: req.body.title}, function (err, item) {
+        if (!item) {
             res.statusCode = 404;
             return res.send({error: 'Not found'});
         }
 
-        return lecture.remove(function (err) {
+        return item.remove(function (err) {
             if (!err) {
-                log.info('lecture deleted');
+                log.info('item deleted');
                 return res.send({status: 'OK'});
             } else {
                 if (err.name == 'ValidationError') {
@@ -128,4 +207,16 @@ app.delete('/lectures:title', function (req, res){
             }
         })
     })
+}
+
+app.delete('/lectures:title', function (req, res) {
+    return deleteItem(req, res, "lectures");
+});
+
+app.delete('/schools:title', function (req, res) {
+    return deleteItem(req, res, "schools");
+});
+
+app.delete('/classrooms:title', function (req, res) {
+    return deleteItem(req, res, "classrooms");
 });
