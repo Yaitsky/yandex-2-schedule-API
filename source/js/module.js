@@ -21,8 +21,9 @@ var scheduleAPI = {
         // кнопка Закрыть модальных окон
         var cancelButtons = document.querySelectorAll('.modal__button--cancel');
         // кнопки Применить модальных окон
-        var applySchool = document.querySelector('.modal__button--add-school');
-        
+        this.applySchool = document.querySelector('.modal__button--add-school');
+        this.applyClassroom = document.querySelector('.modal__button--add-classroom');
+        this.applyLecture = document.querySelector('.modal__button--add-lecture');
 
         //Выбор нужного раздела
         this.filterSelectButton = document.querySelector('.filter-block__select');
@@ -31,15 +32,18 @@ var scheduleAPI = {
         //Обработчики событий для добавления новых школ/лекций/аудиторий
         addSchoolButton.addEventListener('click', function () {
             scheduleAPI.modalSchool.style.display = 'block';
-            applySchool.classList.add('addNew');
+            scheduleAPI.applySchool.classList.add('addNew');
         });
         addClassroomButton.addEventListener('click', function () {
             scheduleAPI.modalClassroom.style.display = 'block';
+            scheduleAPI.applyClassroom.classList.add('addNew');
         });
         addLectureButton.addEventListener('click', function () {
             scheduleAPI.modalLecture.style.display = 'block';
+            scheduleAPI.applyLecture.classList.add('addNew');
         });
-        applySchool.addEventListener('click', function () {
+        // Применить для школы
+        this.applySchool.addEventListener('click', function () {
             var schoolTitle = scheduleAPI.modalSchool.querySelector('.school-title').value;
             var schoolCount = scheduleAPI.modalSchool.querySelector('.school-count').value;
 
@@ -48,11 +52,75 @@ var scheduleAPI = {
                 count: schoolCount
             });
 
-            scheduleAPI.schools.addNew(data);
-            scheduleAPI.schools.showAll();
+            if (scheduleAPI.applySchool.classList.contains('addNew')) {
+                scheduleAPI.schools.addNew(data);
+            } else {
+                scheduleAPI.schools.update(data);
+            }
+
             scheduleAPI.modalSchool.querySelector('.school-title').value = '';
             scheduleAPI.modalSchool.querySelector('.school-count').value = '';
             scheduleAPI.modalSchool.style.display = 'none';
+        });
+        // Применить для аудитории
+        this.applyClassroom.addEventListener('click', function () {
+            var classroomTitle = scheduleAPI.modalClassroom.querySelector('.classroom-title').value;
+            var classroomLocation = scheduleAPI.modalClassroom.querySelector('.classroom-location').value;
+            var classroomCount = scheduleAPI.modalClassroom.querySelector('.classroom-count').value;
+
+            var data = JSON.stringify({
+               title: classroomTitle,
+               location: classroomLocation,
+               count: classroomCount
+            });
+
+            if (scheduleAPI.applyClassroom.classList.contains('addNew')) {
+                scheduleAPI.classrooms.addNew(data);
+            } else {
+                scheduleAPI.classrooms.update(data);
+            }
+
+            scheduleAPI.modalClassroom.querySelector('.classroom-title').value = '';
+            scheduleAPI.modalClassroom.querySelector('.classroom-location').value = '';
+            scheduleAPI.modalClassroom.querySelector('.classroom-count').value = '';
+            scheduleAPI.modalClassroom.style.display = 'none';
+        });
+
+        // Применить для лекции
+        this.applyLecture.addEventListener('click', function () {
+            var lectureTitle = scheduleAPI.modalLecture.querySelector('.lecture-title').value;
+            var lectureNumber = scheduleAPI.modalLecture.querySelector('.lecture-number').value;
+            var lectureSchool = scheduleAPI.modalLecture.querySelector('.lecture-school').value;
+            var lectureTeacher = scheduleAPI.modalLecture.querySelector('.lecture-teacher').value;
+            var lectureCLassroom = scheduleAPI.modalLecture.querySelector('.lecture-classroom').value;
+            var lectureDate = scheduleAPI.modalLecture.querySelector('.lecture-date').value;
+            var lectureVideo = scheduleAPI.modalLecture.querySelector('.lecture-video').value;
+
+            var data = JSON.stringify({
+               title: lectureTitle,
+               number: lectureNumber,
+               school: lectureSchool,
+               teacher: lectureTeacher,
+               classroom: lectureCLassroom,
+               date: lectureDate,
+               video: lectureVideo
+            });
+
+            if (scheduleAPI.applyLecture.classList.contains('addNew')) {
+                scheduleAPI.lectures.addNew(data);
+            } else {
+                scheduleAPI.lectures.update(data);
+            }
+
+            scheduleAPI.modalLecture.querySelector('.lecture-title').value = '';
+            scheduleAPI.modalLecture.querySelector('.lecture-number').value = '';
+            scheduleAPI.modalLecture.querySelector('.lecture-school').value = '';
+            scheduleAPI.modalLecture.querySelector('.lecture-teacher').value = '';
+            scheduleAPI.modalLecture.querySelector('.lecture-classroom').value = '';
+            scheduleAPI.modalLecture.querySelector('.lecture-date').value = '';
+            scheduleAPI.modalLecture.querySelector('.lecture-video').value = '';
+
+            scheduleAPI.modalLecture.style.display = 'none';
         });
 
         //Обработчик для закрытия модального окна
@@ -62,9 +130,21 @@ var scheduleAPI = {
                 scheduleAPI.modalSchool.style.display = 'none';
                 scheduleAPI.modalSchool.querySelector('.school-title').value = '';
                 scheduleAPI.modalSchool.querySelector('.school-count').value = '';
-                applySchool.classList.remove('addNew');
+                scheduleAPI.applySchool.classList.remove('addNew');
                 scheduleAPI.modalClassroom.style.display = 'none';
+                scheduleAPI.modalClassroom.querySelector('.classroom-title').value = '';
+                scheduleAPI.modalClassroom.querySelector('.classroom-location').value = '';
+                scheduleAPI.modalClassroom.querySelector('.classroom-count').value = '';
+                scheduleAPI.applyClassroom.classList.remove('addNew');
                 scheduleAPI.modalLecture.style.display = 'none';
+                scheduleAPI.modalLecture.querySelector('.lecture-title').value = '';
+                scheduleAPI.modalLecture.querySelector('.lecture-number').value = '';
+                scheduleAPI.modalLecture.querySelector('.lecture-school').value = '';
+                scheduleAPI.modalLecture.querySelector('.lecture-teacher').value = '';
+                scheduleAPI.modalLecture.querySelector('.lecture-classroom').value = '';
+                scheduleAPI.modalLecture.querySelector('.lecture-date').value = '';
+                scheduleAPI.modalLecture.querySelector('.lecture-video').value = '';
+                scheduleAPI.applyLecture.classList.remove('addNew');
             });
         };
     },
@@ -103,6 +183,7 @@ var scheduleAPI = {
 
                 scheduleAPI.modalSchool.querySelector('.school-title').value = schoolTitle;
                 scheduleAPI.modalSchool.querySelector('.school-count').value = schoolCount;
+                scheduleAPI.applySchool.classList.remove('addNew');
                 scheduleAPI.modalSchool.style.display = 'block';
             });
         }
@@ -114,6 +195,41 @@ var scheduleAPI = {
             var item = scheduleAPI.renderClassroom(array[i]);
             scheduleAPI.classroomsList.innerHTML += item;
         }
+
+        // обработчики на кнопки удаления
+        var deleteButtons = scheduleAPI.classroomsList.querySelectorAll('.buttons__item--delete');
+        for (var i = 0; i < deleteButtons.length; i++) {
+            deleteButtons[i].addEventListener('click', function (e) {
+                var item = e.currentTarget;
+                var row = item.parentElement.parentElement;
+                var classroomTitle = row.querySelector('.classrooms__col--title').innerText;           
+
+                var data = JSON.stringify({
+                    title: classroomTitle
+                });
+
+                scheduleAPI.classrooms.delete(data);
+            });
+        }
+
+        // обработчики на кнопки редактирования
+        var updateButtons = scheduleAPI.classroomsList.querySelectorAll('.buttons__item--update');
+        for (var i = 0; i < updateButtons.length; i++) {
+            updateButtons[i].addEventListener('click', function (e) {
+                var item = e.currentTarget;
+                var row = item.parentElement.parentElement;
+                var classroomTitle = row.querySelector('.classrooms__col--title').innerText;
+                var classroomLocation = row.querySelector('.classrooms__col--location').innerText;
+                var classroomCount = row.querySelector('.classrooms__col--count').innerText;
+
+                scheduleAPI.modalClassroom.querySelector('.classroom-title').value = classroomTitle;
+                scheduleAPI.modalClassroom.querySelector('.classroom-location').value = classroomLocation;
+                scheduleAPI.modalClassroom.querySelector('.classroom-count').value = classroomCount;
+
+                scheduleAPI.applyClassroom.classList.remove('addNew');
+                scheduleAPI.modalClassroom.style.display = 'block';
+            });
+        }
     },
     renderLecture: require('./templates/lecture-future'),
     renderLectures: function (array) {
@@ -121,6 +237,46 @@ var scheduleAPI = {
         for (var i = 0; i < array.length; i++) {
             var item = scheduleAPI.renderLecture(array[i]);
             scheduleAPI.scheduleList.innerHTML += item;
+        }
+
+        // обработчики на кнопки удаления
+        var deleteButtons = scheduleAPI.scheduleList.querySelectorAll('.buttons__item--delete');
+        for (var i = 0; i < deleteButtons.length; i++) {
+            deleteButtons[i].addEventListener('click', function (e) {
+                var item = e.currentTarget;
+                var row = item.parentElement.parentElement;
+                var lectureTitle = row.querySelector('.schedule__link').innerText;
+                var data = JSON.stringify({
+                    title: lectureTitle
+                });
+
+                console.log(data);
+
+                scheduleAPI.lectures.delete(data);
+            });
+        }
+
+        // обработчики на кнопки редактирования
+        var updateButtons = scheduleAPI.scheduleList.querySelectorAll('.buttons__item--update');
+        for (var i = 0; i < updateButtons.length; i++) {
+            updateButtons[i].addEventListener('click', function (e) {
+                var item = e.currentTarget;
+                var row = item.parentElement.parentElement;
+                var lectureTitle = row.querySelector('.schedule__col--title').innerText;
+                var lectureSchool = row.querySelector('.schedule__col--school').innerText;
+                var lectureTeacher = row.querySelector('.schedule__col--teacher').innerText;
+                var lectureClassroom = row.querySelector('.schedule__col--classroom').innerText;
+                var lectureDate = row.querySelector('.schedule__col--date').innerText;
+
+                scheduleAPI.modalLecture.querySelector('.lecture-title').value = lectureTitle;
+                scheduleAPI.modalLecture.querySelector('.lecture-school').value = lectureSchool;
+                scheduleAPI.modalLecture.querySelector('.lecture-teacher').value = lectureTeacher;
+                scheduleAPI.modalLecture.querySelector('.lecture-classroom').value = lectureClassroom;
+                scheduleAPI.modalLecture.querySelector('.lecture-date').value = lectureDate;
+
+                scheduleAPI.applyLecture.classList.remove('addNew');
+                scheduleAPI.modalLecture.style.display = 'block';
+            });
         }
     },
     filter: function () {
@@ -179,7 +335,6 @@ var scheduleAPI = {
         addNew: function (data) {
             scheduleAPI.sendRequest('POST', '/schools', data).
             then(function (response) {
-                console.log(response);
                 scheduleAPI.schools.showAll();
             },
             function (response) {
@@ -190,16 +345,16 @@ var scheduleAPI = {
         update: function (data) {
             scheduleAPI.sendRequest('PUT', '/schools:title', data).
             then(function (response) {
-                console.log(response);
+                scheduleAPI.schools.showAll();
             },
             function () {
                 console.log('Не удалось сделать запрос');
+                console.log(response);
             });
         },
         delete: function (data) {
             scheduleAPI.sendRequest('DELETE', '/schools:title', data).
             then(function (response) {
-                console.log(response);
                 scheduleAPI.schools.showAll();
             },
             function (response) {
@@ -222,7 +377,7 @@ var scheduleAPI = {
         addNew: function (data) {
             scheduleAPI.sendRequest('POST', '/classrooms', data).
             then(function (response) {
-                console.log(response);
+                scheduleAPI.classrooms.showAll();
             },
             function (response) {
                 console.log('Не удалось сделать запрос');
@@ -232,7 +387,7 @@ var scheduleAPI = {
         update: function (data) {
             scheduleAPI.sendRequest('PUT', '/classrooms:title', data).
             then(function (response) {
-                console.log(response);
+                scheduleAPI.classrooms.showAll();
             },
             function (response) {
                 console.log('Не удалось сделать запрос');
@@ -242,7 +397,7 @@ var scheduleAPI = {
         delete: function (data) {
             scheduleAPI.sendRequest('DELETE', '/classrooms:title', data).
             then(function (response) {
-                console.log(response);
+                scheduleAPI.classrooms.showAll();
             },
             function (response) {
                 console.log('Не удалось сделать запрос');
@@ -264,7 +419,7 @@ var scheduleAPI = {
         addNew: function (data) {
             scheduleAPI.sendRequest('POST', '/lectures', data).
             then(function (response) {
-                console.log(response);
+                scheduleAPI.lectures.showAll();
             },
             function (response) {
                 console.log('Не удалось сделать запрос');
@@ -274,7 +429,7 @@ var scheduleAPI = {
         update: function (data) {
             scheduleAPI.sendRequest('PUT', '/lectures:title', data).
             then(function (response) {
-                console.log(response);
+                scheduleAPI.lectures.showAll();
             },
             function (response) {
                 console.log('Не удалось сделать запрос');
@@ -284,7 +439,7 @@ var scheduleAPI = {
         delete: function (data) {
             scheduleAPI.sendRequest('DELETE', '/lectures:title', data).
             then(function (response) {
-                console.log(response);
+                scheduleAPI.lectures.showAll();
             },
             function (response) {
                 console.log('Не удалось сделать запрос');

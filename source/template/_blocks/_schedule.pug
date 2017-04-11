@@ -54,19 +54,19 @@ div.container
             input.modal__input.school-count(type="text", placeholder="Количество студентов")    
         div.modal__row.modal__row--buttons
             button.modal__button.modal__button--cancel Отмена
-            button.modal__button.modal__button--ok.modal__button--add-school Применить
+            button.modal__button.modal__button--ok.modal__button--add-school.addNew Применить
     
     div.modal.modal-classroom
         div.modal__title Редактирование аудитории
         div.modal__row
             div.modal__input-text Название
-            input.modal__input(type="text", placeholder="Название аудитории")
+            input.modal__input.classroom-title(type="text", placeholder="Название аудитории")
         div.modal__row
             div.modal__input-text Местоположение
-            input.modal__input(type="text", placeholder="Количество студентов")
+            input.modal__input.classroom-location(type="text", placeholder="Местоположение")
         div.modal__row
             div.modal__input-text Количество студентов
-            input.modal__input(type="text", placeholder="Количество студентов")    
+            input.modal__input.classroom-count(type="text", placeholder="Количество студентов")    
         div.modal__row.modal__row--buttons
             button.modal__button.modal__button--cancel Отмена
             button.modal__button.modal__button--ok.modal__button--add-classroom Применить
@@ -75,22 +75,25 @@ div.container
         div.modal__title Редактирование лекции
         div.modal__row
             div.modal__input-text Название
-            input.modal__input(type="text", placeholder="Название лекции")
+            input.modal__input.lecture-title(type="text", placeholder="Название лекции")
+        div.modal__row
+            div.modal__input-text Номер лекции
+            input.modal__input.lecture-number(type="text", placeholder="Номер лекции")
         div.modal__row
             div.modal__input-text Школа
-            input.modal__input(type="text", placeholder="Название школы")
+            input.modal__input.lecture-school(type="text", placeholder="Название школы")
         div.modal__row
             div.modal__input-text Учитель
-            input.modal__input(type="text", placeholder="Учитель")
+            input.modal__input.lecture-teacher(type="text", placeholder="Учитель")
         div.modal__row
             div.modal__input-text Аудитория
-            input.modal__input(type="text", placeholder="Аудитория")  
+            input.modal__input.lecture-classroom(type="text", placeholder="Аудитория")  
         div.modal__row
             div.modal__input-text Дата
-            input.modal__input(type="text", placeholder="Дата")  
+            input.modal__input.lecture-date(type="text", placeholder="Дата")  
         div.modal__row
             div.modal__input-text Запись лекции
-            input.modal__input(type="text", placeholder="Запись лекции")                 
+            input.modal__input.lecture-video(type="text", placeholder="Запись лекции")                 
         div.modal__row.modal__row--buttons
             button.modal__button.modal__button--cancel Отмена
             button.modal__button.modal__button--ok.modal__button--add-lecture Применить

@@ -1,19 +1,19 @@
 <div class="schedule__row">
-    <div class="schedule__col schedule__col--wide" data-label="Название">
+    <div class="schedule__col schedule__col--wide schedule__col--title" data-label="Название">
         <a href="{{video}}" class="schedule__link">{{title}}</a>
     </div>
-    <div class="schedule__col schedule__col--medium" data-label="Школа">
+    <div class="schedule__col schedule__col--medium schedule__col--school" data-label="Школа">
         {{#each school as |school-name|}}
               <span>{{school-name}}</span>
         {{/each}}
     </div>
-    <div class="schedule__col" data-label="Учитель">
+    <div class="schedule__col schedule__col--teacher" data-label="Учитель">
         {{#each teacher as |teacher-name|}}
               <span class="schedule__teacher">{{teacher-name}}</span>
         {{/each}}
     </div>
-    <div class="schedule__col" data-label="Аудитория">{{classroom}}</div>
-    <div class="schedule__col" data-label="Дата">
+    <div class="schedule__col schedule__col--classroom" data-label="Аудитория">{{classroom}}</div>
+    <div class="schedule__col schedule__col--date" data-label="Дата">
         {{date}}
     </div>
     <div class="buttons">
