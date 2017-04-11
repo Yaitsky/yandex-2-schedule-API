@@ -14,48 +14,17 @@ div.container
                 div.schools__col.schools__col--wide Название школы
                 div.schools__col.schools__col--small Количество учеников
             div.schools__list
-                div.schools__row
-                    div.schools__col.schools__col--wide Школа разработки интерфейсов
-                    div.schools__col.schools__col--small 100
-                    div.buttons
-                        div.buttons__item.buttons__item--update
-                            i.fa.fa-pencil.buttons__icon(aria-hidden="true")
-                        div.buttons__item.buttons__item--delete
-                            i.fa.fa-times.buttons__icon(aria-hidden="true")
-                div.schools__row
-                    div.schools__col.schools__col--wide Школа разработки интерфейсов
-                    div.schools__col.schools__col--small 100
-                    div.buttons
-                        div.buttons__item.buttons__item--update
-                            i.fa.fa-pencil.buttons__icon(aria-hidden="true")
-                        div.buttons__item.buttons__item--delete
-                            i.fa.fa-times.buttons__icon(aria-hidden="true")
+               
+
         div.classrooms
             div.classrooms__add-block
                 button.classrooms__add-button Добавить аудиторию
             div.classrooms__row.classrooms__row--head
                 div.classrooms__col.classrooms__col--wide Название аудитории
                 div.classrooms__col.classrooms__col--wide Местоположение
-                div.classrooms__col.classrooms__col--small Количество учеников
+                div.classrooms__col.classrooms__col--small Количество мест
             div.classrooms__list
-                div.classrooms__row
-                    div.classrooms__col.classrooms__col--wide 1001
-                    div.classrooms__col.classrooms__col--wide Западный корпус
-                    div.classrooms__col.classrooms__col--small 109
-                    div.buttons
-                        div.buttons__item.buttons__item--update
-                            i.fa.fa-pencil.buttons__icon(aria-hidden="true")
-                        div.buttons__item.buttons__item--delete
-                            i.fa.fa-times.buttons__icon(aria-hidden="true")
-                div.classrooms__row
-                    div.classrooms__col.classrooms__col--wide 1003
-                    div.classrooms__col.classrooms__col--wide Восточный корпус
-                    div.classrooms__col.classrooms__col--small 115
-                    div.buttons
-                        div.buttons__item.buttons__item--update
-                            i.fa.fa-pencil.buttons__icon(aria-hidden="true")
-                        div.buttons__item.buttons__item--delete
-                            i.fa.fa-times.buttons__icon(aria-hidden="true")
+
     
         div.schedule
             div.search-block
@@ -73,40 +42,19 @@ div.container
                 div.schedule__col Аудитория
                 div.schedule__col Дата
             div.schedule__list
-                div.schedule__row
-                    div.schedule__col.schedule__col--wide Вступительная лекция
-                    div.schedule__col.schedule__col--medium Школа разработки интерфейсов
-                    div.schedule__col Дмитрий Душкин
-                    div.schedule__col 1001
-                    div.schedule__col 23.01.2017
-                    div.buttons
-                        div.buttons__item.buttons__item--update
-                            i.fa.fa-pencil.buttons__icon(aria-hidden="true")
-                        div.buttons__item.buttons__item--delete
-                            i.fa.fa-times.buttons__icon(aria-hidden="true")
-                div.schedule__row
-                    div.schedule__col.schedule__col--wide Вступительная лекция 2
-                    div.schedule__col.schedule__col--medium Школа разработки интерфейсов
-                    div.schedule__col Дмитрий Душкин
-                    div.schedule__col 1001
-                    div.schedule__col 23.01.2017
-                    div.buttons
-                        div.buttons__item.buttons__item--update
-                            i.fa.fa-pencil.buttons__icon(aria-hidden="true")
-                        div.buttons__item.buttons__item--delete
-                            i.fa.fa-times.buttons__icon(aria-hidden="true")
+                
 
     div.modal.modal-school
         div.modal__title Редактирование школы
         div.modal__row
             div.modal__input-text Название
-            input.modal__input(type="text", placeholder="Название школы")
+            input.modal__input.school-title(type="text", placeholder="Название школы")
         div.modal__row
             div.modal__input-text Количество студентов
-            input.modal__input(type="text", placeholder="Количество студентов")    
+            input.modal__input.school-count(type="text", placeholder="Количество студентов")    
         div.modal__row.modal__row--buttons
             button.modal__button.modal__button--cancel Отмена
-            button.modal__button.modal__button--ok Применить
+            button.modal__button.modal__button--ok.modal__button--add-school Применить
     
     div.modal.modal-classroom
         div.modal__title Редактирование аудитории
@@ -121,7 +69,7 @@ div.container
             input.modal__input(type="text", placeholder="Количество студентов")    
         div.modal__row.modal__row--buttons
             button.modal__button.modal__button--cancel Отмена
-            button.modal__button.modal__button--ok Применить
+            button.modal__button.modal__button--ok.modal__button--add-classroom Применить
 
     div.modal.modal-lecture
         div.modal__title Редактирование лекции
@@ -145,4 +93,4 @@ div.container
             input.modal__input(type="text", placeholder="Запись лекции")                 
         div.modal__row.modal__row--buttons
             button.modal__button.modal__button--cancel Отмена
-            button.modal__button.modal__button--ok Применить
+            button.modal__button.modal__button--ok.modal__button--add-lecture Применить

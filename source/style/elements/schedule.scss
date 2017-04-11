@@ -87,7 +87,7 @@
     &:active {
       outline:none;
     }
-
+  
     &:focus {
       outline:none;
     }
@@ -117,6 +117,7 @@
     position:relative;
     background-color:$white;
     cursor:pointer;
+    box-shadow: 1px 2px 4px rgba(0,0,0,0.2);
 
     &--update {
       border-color:$yellow;
@@ -233,6 +234,7 @@
 .classrooms {
   width:100%;
   margin-bottom:50px;
+  display:none;
 
   &__list {
     width:100%;
@@ -314,6 +316,7 @@
 .schedule {
   width:100%;
   margin-bottom:50px;
+  display:none;
 
   &__list {
     width:100%;

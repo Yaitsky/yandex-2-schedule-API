@@ -21,5 +21,5 @@ var Handlebars = require("handlebars");module.exports = Handlebars.template({"1"
     + alias3(((helper = (helper = helpers.classroom || (depth0 != null ? depth0.classroom : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"classroom","hash":{},"data":data,"blockParams":blockParams}) : helper)))
     + "</div>\n    <div class=\"schedule__col\" data-label=\"Дата\">\n        "
     + alias3(((helper = (helper = helpers.date || (depth0 != null ? depth0.date : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"date","hash":{},"data":data,"blockParams":blockParams}) : helper)))
-    + "\n    </div>\n</div>";
+    + "\n    </div>\n    <div class=\"buttons\">\n        <div class=\"buttons__item buttons__item--update\">\n            <i class=\"fa fa-pencil buttons__icon\" aria-hidden=\"true\"></i>\n        </div>\n        <div class=\"buttons__item buttons__item--delete\">\n            <i class=\"fa fa-times buttons__icon\" aria-hidden=\"true\"></i>\n        </div>\n    </div>\n</div>";
 },"useData":true,"useBlockParams":true});
