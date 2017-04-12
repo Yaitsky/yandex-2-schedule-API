@@ -1,6 +1,14 @@
 var scheduleAPI = {
     init: function () {
          //Рендерим все списки
+        var data3 = JSON.stringify({
+            classroom: "1005"
+        });
+        var data2 = JSON.stringify({
+            school: "Школа разработки интерфейсов"
+        });
+        // this.lectures.filterByClassroom(data3);
+        // this.lectures.filterLectures(data2);
         this.schools.showAll();
         this.classrooms.showAll();
         this.lectures.showAll();
@@ -235,7 +243,15 @@ var scheduleAPI = {
     renderLectures: function (array) {
         this.scheduleList.innerHTML = '';
         for (var i = 0; i < array.length; i++) {
+            // var date = new Date(array[i].date);
+            // var year = date.getFullYear();
+            // var month = date.getMonth();
+            // var data = date.getDate();
+            // var currentDate = data + '.' + month + '.'+ year;
+            // array[i].date = currentDate;
+
             var item = scheduleAPI.renderLecture(array[i]);
+            
             scheduleAPI.scheduleList.innerHTML += item;
         }
 
@@ -445,7 +461,29 @@ var scheduleAPI = {
                 console.log('Не удалось сделать запрос');
                 console.log(response);
             });
-        }
+        },
+        filterLectures: function (data) {
+            scheduleAPI.sendRequest('POST', '/lectures:filter', data).
+            then(function (response) {
+                scheduleAPI.renderLectures(response);
+                console.log('!!!', response);
+            },
+            function (response) {
+                console.log('Не удалось сделать запрос');
+                console.log(response);
+            });
+        },
+         filterByClassroom: function (data) {
+            scheduleAPI.sendRequest('POST', '/lectures:classroom-filter', data).
+            then(function (response) {
+                scheduleAPI.renderLectures(response);
+                console.log('!!!', response);
+            },
+            function (response) {
+                console.log('Не удалось сделать запрос');
+                console.log(response);
+            });
+        },
     }
 };
 

@@ -53,6 +53,34 @@ app.get('/classrooms', function (req, res) {
     return getLists(req, res, "classrooms");
 });
 
+//POST показать список лекций заданной школы или в заданной аудитории в заданной период
+function getLecturesByFilter (req, res) {
+    if (req.body.school) {
+        return LecturesModel.find({school: req.body.school}, function (err, list) {
+        if (!err) {
+            res.send(list);
+        } else {
+            res.statusCode = 500;
+            log.error('Internal error', res.statusCode,err.message);
+            return res.send({error: 'Server error'});
+            }
+        }); 
+    } else {
+        return LecturesModel.find({classroom: req.body.classroom}, function (err, list) {
+        if (!err) {
+            res.send(list);
+        } else {
+            res.statusCode = 500;
+            log.error('Internal error', res.statusCode,err.message);
+            return res.send({error: 'Server error'});
+            }
+        }); 
+    } 
+};
+app.post('/lectures:filter', function (req, res) {
+    return getLecturesByFilter(req, res);
+});
+
 //POST добавить лекцию/школу/аудиторию
 function postNewItem (req, res, name) {
     var itemModel;
