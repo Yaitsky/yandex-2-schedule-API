@@ -28,10 +28,24 @@ div.container
     
         div.schedule
             div.search-block
-                div.search-block__text Поиск лекции в указанный период
-                input.search-block__input(type="text", placeholder="Начало")
-                input.search-block__input(type="text", placeholder="Конец")
-                button.search-block__button Поиск
+                div.search-block__row
+                    div.search-block__text Поиск лекции по школе:
+                    input.search-block__input.search-block__input--school(type="text", placeholder="Название школы")
+                    input.search-block__input.school-start(type="text", placeholder="Начало")
+                    input.search-block__input.school-end(type="text", placeholder="Конец")
+                    button.search-block__button.school-search
+                        i.fa.fa-search.search-block__icon(aria="hidden")
+                    button.search-block__cancel.school-cancel
+                        i.fa.fa-times.search-block__icon(aria="hidden")
+                div.search-block__row
+                    div.search-block__text Поиск лекции по аудитории:
+                    input.search-block__input.search-block__input--classroom(type="text", placeholder="Название аудитории")
+                    input.search-block__input.classroom-start(type="text", placeholder="Начало")
+                    input.search-block__input.classroom-end(type="text", placeholder="Конец")
+                    button.search-block__button.classroom-search
+                        i.fa.fa-search.search-block__icon(aria="hidden")
+                    button.search-block__cancel.classroom-cancel
+                        i.fa.fa-times.search-block__icon(aria="hidden")           
                 
             div.schedule__add-block
                     button.schedule__add-button Добавить лекцию        

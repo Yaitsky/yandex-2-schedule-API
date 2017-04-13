@@ -58,7 +58,19 @@ function getLecturesByFilter (req, res) {
     if (req.body.school) {
         return LecturesModel.find({school: req.body.school}, function (err, list) {
         if (!err) {
-            res.send(list);
+            var startDate = new Date(req.body.start).getTime();
+            var endDate = new Date(req.body.end).getTime();
+            var resultList = [];
+
+            for (var i = 0; i < list.length; i++) {
+                var itemDate = new Date(list[i].date).getTime();
+
+                if ((itemDate >= startDate) && (itemDate < endDate)) {
+                    resultList.push(list[i]);
+                }
+            }
+
+            res.send(resultList);
         } else {
             res.statusCode = 500;
             log.error('Internal error', res.statusCode,err.message);
@@ -68,7 +80,19 @@ function getLecturesByFilter (req, res) {
     } else {
         return LecturesModel.find({classroom: req.body.classroom}, function (err, list) {
         if (!err) {
-            res.send(list);
+            var startDate = new Date(req.body.start).getTime();
+            var endDate = new Date(req.body.end).getTime();
+            var resultList = [];
+
+            for (var i = 0; i < list.length; i++) {
+                var itemDate = new Date(list[i].date).getTime();
+
+                if ((itemDate >= startDate) && (itemDate < endDate)) {
+                    resultList.push(list[i]);
+                }
+            }
+
+            res.send(resultList);
         } else {
             res.statusCode = 500;
             log.error('Internal error', res.statusCode,err.message);

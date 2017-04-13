@@ -34,11 +34,15 @@
   }
 }
 
+//SEARCH BLOCK
 .search-block {
-  display:flex;
-  justify-content: flex-start;
   padding:10px 0;
 
+  &__row {
+    display:flex;
+    justify-content: flex-start;
+    padding:5px 0;
+  }
 
   &__text {
     line-height:30px;
@@ -59,28 +63,41 @@
     &:focus {
       outline:none;
     }
+
+    &--school {
+      width:300px;
+    }
+
+    &--classroom {
+      width:250px;
+    }
+  }
+
+  &__cancel {
+    color:$red;
+    cursor:pointer;
+    border:2px solid transparent;
+    background-color:transparent;
+    margin-left:10px;
+    font-size:18px;
+
+    &:hover {
+      border-color: $red;
+    }
   }
 
   &__button {
-    color: $black;
+    color: $white;
     border:2px solid $yellow;
     text-decoration: none;
     padding:4px 12px;
     background-color:$white;
     margin-left:10px;
-
-    &--cancel {
-      border-color: transparent;
-
-      &:hover {
-        border-color:transparent !important;
-        text-decoration: underline;
-      }
-    }
+    background-color:$yellow;
 
     &:hover {
       border:2px solid $red;
-      color:$red;
+      background-color:$red;
       cursor:pointer;
     }
 
@@ -92,6 +109,10 @@
       outline:none;
     }
   }
+}
+
+.classroom-cancel, .school-cancel {
+  display:none;
 }
 
 //BUTTONS
