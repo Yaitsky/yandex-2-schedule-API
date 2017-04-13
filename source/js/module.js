@@ -306,13 +306,6 @@ var scheduleAPI = {
     renderLectures: function (array) {
         this.scheduleList.innerHTML = '';
         for (var i = 0; i < array.length; i++) {
-            // var currentDate = new Date(array[i].date).getTime();
-            // // // var year = date.getFullYear();
-            // // // var month = date.getMonth();
-            // // // var data = date.getDate();
-            // // // var currentDate = data + '.' + month + '.'+ year;
-            // array[i].date = currentDate;
-
             var item = scheduleAPI.renderLecture(array[i]);
             
             scheduleAPI.scheduleList.innerHTML += item;
@@ -535,18 +528,7 @@ var scheduleAPI = {
                 console.log('Не удалось сделать запрос');
                 console.log(response);
             });
-        },
-         filterByClassroom: function (data) {
-            scheduleAPI.sendRequest('POST', '/lectures:classroom-filter', data).
-            then(function (response) {
-                scheduleAPI.renderLectures(response);
-                console.log('!!!', response);
-            },
-            function (response) {
-                console.log('Не удалось сделать запрос');
-                console.log(response);
-            });
-        },
+        }
     }
 };
 

@@ -15,10 +15,6 @@
   font-size: 16px;
   color:$black;
 
-  @include tablet {
-    width:100%;
-  }
-
   &__select {
     height:36px;
     border:2px solid $yellow;
@@ -83,6 +79,14 @@
 
     &:hover {
       border-color: $red;
+    }
+
+    &:active {
+      outline:none;
+    }
+  
+    &:focus {
+      outline:none;
     }
   }
 

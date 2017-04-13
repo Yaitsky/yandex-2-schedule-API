@@ -106,9 +106,23 @@ app.post('/lectures:filter', function (req, res) {
 });
 
 //POST добавить лекцию/школу/аудиторию
+function validateLecture (item) {
+    var lectureList = [];
+    LecturesModel.find(function (err, list) {
+        if (!err) {
+            for (var i = 0; i < list.length; i++) {
+                lectureList.push(list[i]);
+            }
+        }
+    });
+};
+
+validateLecture();
+
 function postNewItem (req, res, name) {
     var itemModel;
     var item;
+    var validationInfo;
     if (name == "lectures") {
         itemModel = LecturesModel;
         item = new itemModel({
@@ -120,6 +134,7 @@ function postNewItem (req, res, name) {
             video: req.body.video,
             classroom: req.body.classroom
         });
+        validationInfo = validateLecture(item);
     } else if (name == "schools") {
         itemModel = SchoolsModel;
         item = new itemModel({
