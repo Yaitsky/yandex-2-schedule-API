@@ -426,11 +426,6 @@
   &__teacher {
     display:block;
     color:$blue;
-    cursor:pointer;
-
-      &:hover {
-        color:$red;
-      }
   }
 
   &__link {

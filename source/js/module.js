@@ -106,7 +106,6 @@ var scheduleAPI = {
         // Применить для лекции
         this.applyLecture.addEventListener('click', function () {
             var lectureTitle = scheduleAPI.modalLecture.querySelector('.lecture-title').value;
-            var lectureNumber = scheduleAPI.modalLecture.querySelector('.lecture-number').value;
             var lectureSchool = scheduleAPI.modalLecture.querySelector('.lecture-school').value;
             var lectureTeacher = scheduleAPI.modalLecture.querySelector('.lecture-teacher').value;
             var lectureCLassroom = scheduleAPI.modalLecture.querySelector('.lecture-classroom').value;
@@ -115,7 +114,6 @@ var scheduleAPI = {
 
             var data = JSON.stringify({
                title: lectureTitle,
-               number: lectureNumber,
                school: lectureSchool,
                teacher: lectureTeacher,
                classroom: lectureCLassroom,
@@ -206,7 +204,6 @@ var scheduleAPI = {
         scheduleAPI.modalClassroom.querySelector('.classroom-location').value = '';
         scheduleAPI.modalClassroom.querySelector('.classroom-count').value = '';
         scheduleAPI.modalLecture.querySelector('.lecture-title').value = '';
-        scheduleAPI.modalLecture.querySelector('.lecture-number').value = '';
         scheduleAPI.modalLecture.querySelector('.lecture-school').value = '';
         scheduleAPI.modalLecture.querySelector('.lecture-teacher').value = '';
         scheduleAPI.modalLecture.querySelector('.lecture-classroom').value = '';

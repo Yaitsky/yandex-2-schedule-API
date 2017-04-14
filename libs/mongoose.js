@@ -46,10 +46,6 @@ var Lectures = new Schema({
         type: Array,
         required: true
     },
-    number: {
-        type: String,
-        required: true
-    },
     title: {
         type: String,
         required: true
