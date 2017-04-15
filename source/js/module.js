@@ -48,6 +48,7 @@ var scheduleAPI = {
 
         //Выбор нужного раздела
         this.filterSelectButton = document.querySelector('.filter-block__select');
+        this.filterSelectButton.options.selectedIndex = 0;
         this.filterSelectButton.addEventListener('change', this.filter.bind(this));
 
         //Обработчики событий для добавления новых школ/лекций/аудиторий
@@ -63,7 +64,7 @@ var scheduleAPI = {
             scheduleAPI.modalLecture.style.display = 'block';
             scheduleAPI.applyLecture.classList.add('addNew');
         });
-        // Применить для школы
+        // кнопка Применить для школы
         this.applySchool.addEventListener('click', function () {
             var schoolTitle = scheduleAPI.modalSchool.querySelector('.school-title').value;
             var schoolCount = scheduleAPI.modalSchool.querySelector('.school-count').value;
@@ -82,7 +83,7 @@ var scheduleAPI = {
             scheduleAPI.clearInputs();
             scheduleAPI.modalSchool.style.display = 'none';
         });
-        // Применить для аудитории
+        // кнопка Применить для аудитории
         this.applyClassroom.addEventListener('click', function () {
             var classroomTitle = scheduleAPI.modalClassroom.querySelector('.classroom-title').value;
             var classroomLocation = scheduleAPI.modalClassroom.querySelector('.classroom-location').value;
@@ -103,7 +104,7 @@ var scheduleAPI = {
             scheduleAPI.clearInputs();
             scheduleAPI.modalClassroom.style.display = 'none';
         });
-        // Применить для лекции
+        // кнопка Применить для лекции
         this.applyLecture.addEventListener('click', function () {
             var lectureTitle = scheduleAPI.modalLecture.querySelector('.lecture-title').value;
             var lectureSchool = scheduleAPI.modalLecture.querySelector('.lecture-school').value;
@@ -334,12 +335,14 @@ var scheduleAPI = {
                 var lectureTeacher = row.querySelector('.schedule__col--teacher').innerText;
                 var lectureClassroom = row.querySelector('.schedule__col--classroom').innerText;
                 var lectureDate = row.querySelector('.schedule__col--date').innerText;
+                var lectureVideo = row.querySelector('.schedule__link').getAttribute('href');
 
                 scheduleAPI.modalLecture.querySelector('.lecture-title').value = lectureTitle;
                 scheduleAPI.modalLecture.querySelector('.lecture-school').value = lectureSchool;
                 scheduleAPI.modalLecture.querySelector('.lecture-teacher').value = lectureTeacher;
                 scheduleAPI.modalLecture.querySelector('.lecture-classroom').value = lectureClassroom;
                 scheduleAPI.modalLecture.querySelector('.lecture-date').value = lectureDate;
+                scheduleAPI.modalLecture.querySelector('.lecture-video').value = lectureVideo;
 
                 scheduleAPI.applyLecture.classList.remove('addNew');
                 scheduleAPI.modalLecture.style.display = 'block';
@@ -409,6 +412,7 @@ var scheduleAPI = {
             function (response) {
                 console.log('Не удалось сделать запрос');
                 console.log(response);
+                alert('Не удалось сделать запрос. ' + response.error);
             });
         },
         update: function (data) {
@@ -419,6 +423,7 @@ var scheduleAPI = {
             function () {
                 console.log('Не удалось сделать запрос');
                 console.log(response);
+                alert('Не удалось сделать запрос. ' + response.error);
             });
         },
         delete: function (data) {
@@ -429,6 +434,7 @@ var scheduleAPI = {
             function (response) {
                 console.log('Не удалось сделать запрос');
                 console.log(response);
+                alert('Не удалось сделать запрос. ' + response.error);
             });
         }
     },
@@ -441,6 +447,7 @@ var scheduleAPI = {
             function (response) {
                 console.log('Не удалось сделать запрос');
                 console.log(response);
+                alert('Не удалось сделать запрос. ' + response.error);
             });
         },
         addNew: function (data) {
@@ -451,6 +458,7 @@ var scheduleAPI = {
             function (response) {
                 console.log('Не удалось сделать запрос');
                 console.log(response);
+                alert('Не удалось сделать запрос. ' + response.error);
             });
         },
         update: function (data) {
@@ -461,6 +469,7 @@ var scheduleAPI = {
             function (response) {
                 console.log('Не удалось сделать запрос');
                 console.log(response);
+                alert('Не удалось сделать запрос. ' + response.error);
             });
         },
         delete: function (data) {
@@ -471,6 +480,7 @@ var scheduleAPI = {
             function (response) {
                 console.log('Не удалось сделать запрос');
                 console.log(response);
+                alert('Не удалось сделать запрос. ' + response.error);
             });
         }
     },
@@ -483,6 +493,7 @@ var scheduleAPI = {
             function (response) {
                 console.log('Не удалось сделать запрос');
                 console.log(response);
+                alert('Не удалось сделать запрос. ' + response.error);
             });
         },
         addNew: function (data) {
@@ -493,6 +504,7 @@ var scheduleAPI = {
             function (response) {
                 console.log('Не удалось сделать запрос');
                 console.log(response);
+                alert('Не удалось сделать запрос. ' + response.error);
             });
         },
         update: function (data) {
@@ -503,6 +515,7 @@ var scheduleAPI = {
             function (response) {
                 console.log('Не удалось сделать запрос');
                 console.log(response);
+                alert('Не удалось сделать запрос. ' + response.error);
             });
         },
         delete: function (data) {
@@ -513,6 +526,7 @@ var scheduleAPI = {
             function (response) {
                 console.log('Не удалось сделать запрос');
                 console.log(response);
+                alert('Не удалось сделать запрос. ' + response.error);
             });
         },
         filterLectures: function (data) {
@@ -524,6 +538,7 @@ var scheduleAPI = {
             function (response) {
                 console.log('Не удалось сделать запрос');
                 console.log(response);
+                alert('Не удалось сделать запрос. ' + response.error);
             });
         }
     }

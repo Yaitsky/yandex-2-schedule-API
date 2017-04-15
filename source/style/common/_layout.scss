@@ -26,29 +26,6 @@ body {
     align-items: center;
     height: 100%;
   }
-
-  @include laptop {
-    width:740px;
-  }
-
-  @include tablet {
-    width:90%;
-  }
-}
-
-html {
-
-  @include laptop {
-    font-size:15px;
-  }
-
-  @include tablet {
-    font-size:14px;
-  }
-
-  @include phone {
-    font-size:13px;
-  }
 }
 
 // Для float - блоков
