@@ -1,6 +1,8 @@
 
 #Тестовое задание в Яндекс Школа интерфейсов (апрель 2017 г.) Yandex#2 - Schedule API
 
+#Описание приложения - https://docs.google.com/document/d/11xh92sDu0dJ5U9h1gem_qYkeJdfV_lSFOkXnBNf_Aus/edit?usp=sharing
+
 Stack:
  - Gulp 4.0
  
