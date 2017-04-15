@@ -113,6 +113,13 @@ var scheduleAPI = {
             var lectureDate = scheduleAPI.modalLecture.querySelector('.lecture-date').value;
             var lectureVideo = scheduleAPI.modalLecture.querySelector('.lecture-video').value;
 
+            var valid = /[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])/;
+            if (!valid.test(lectureDate)) {
+                alert('Дата должна быть введена в формате ГГГГ-ММ-ДД');
+
+                return false;
+            }
+
             var data = JSON.stringify({
                title: lectureTitle,
                school: lectureSchool,
@@ -155,6 +162,13 @@ var scheduleAPI = {
                 return false;
             }
 
+            var valid = /[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])/;
+            if (!valid.test(startTime) || !valid.test(endTime)) {
+                alert('Дата должна быть введена в формате ГГГГ-ММ-ДД');
+
+                return false;
+            }
+
             var data = JSON.stringify({
                 school: schoolTitle,
                 start: startTime,
@@ -178,6 +192,13 @@ var scheduleAPI = {
             var endTime = scheduleAPI.searchClassroomEndTime.value;
 
             if ((classroomTitle == '') || (startTime == '') || endTime == '') {
+                return false;
+            }
+
+            var valid = /[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])/;
+            if (!valid.test(startTime) || !valid.test(endTime)) {
+                alert('Дата должна быть введена в формате ГГГГ-ММ-ДД');
+
                 return false;
             }
 
@@ -533,7 +554,6 @@ var scheduleAPI = {
             scheduleAPI.sendRequest('POST', '/lectures:filter', data).
             then(function (response) {
                 scheduleAPI.renderLectures(response);
-                console.log('!!!', response);
             },
             function (response) {
                 console.log('Не удалось сделать запрос');
