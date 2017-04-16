@@ -1,15 +1,6 @@
 var scheduleAPI = {
     init: function () {
          //Рендерим все списки
-        var data3 = JSON.stringify({
-            classroom: "1005"
-        });
-        var data2 = JSON.stringify({
-            school: "Школа разработки интерфейсов",
-            start: "2016-11-01",
-            end: "2016-11-30"
-        });
-        // this.lectures.filterLectures(data2);
         this.schools.showAll();
         this.classrooms.showAll();
         this.lectures.showAll();
@@ -90,9 +81,9 @@ var scheduleAPI = {
             var classroomCount = scheduleAPI.modalClassroom.querySelector('.classroom-count').value;
 
             var data = JSON.stringify({
-               title: classroomTitle,
-               location: classroomLocation,
-               count: classroomCount
+                title: classroomTitle,
+                location: classroomLocation,
+                count: classroomCount
             });
 
             if (scheduleAPI.applyClassroom.classList.contains('addNew')) {
@@ -121,12 +112,12 @@ var scheduleAPI = {
             }
 
             var data = JSON.stringify({
-               title: lectureTitle,
-               school: lectureSchool,
-               teacher: lectureTeacher,
-               classroom: lectureCLassroom,
-               date: lectureDate,
-               video: lectureVideo
+                title: lectureTitle,
+                school: lectureSchool,
+                teacher: lectureTeacher,
+                classroom: lectureCLassroom,
+                date: lectureDate,
+                video: lectureVideo
             });
 
             if (scheduleAPI.applyLecture.classList.contains('addNew')) {
@@ -150,7 +141,7 @@ var scheduleAPI = {
                 scheduleAPI.applyLecture.classList.remove('addNew');
                 scheduleAPI.clearInputs();
             });
-        };
+        }
 
         //обработчик на поиск по школам в заданный период
         this.searchSchoolButton.addEventListener('click', function () {
@@ -180,9 +171,9 @@ var scheduleAPI = {
         });
 
         this.searchSchoolCancel.addEventListener('click', function () {
-             scheduleAPI.searchSchoolCancel.style.display = 'none';
-             scheduleAPI.lectures.showAll();
-             scheduleAPI.clearInputs();
+            scheduleAPI.searchSchoolCancel.style.display = 'none';
+            scheduleAPI.lectures.showAll();
+            scheduleAPI.clearInputs();
         });
 
         //обработчик на поиск по аудитории в заданный период
@@ -213,9 +204,9 @@ var scheduleAPI = {
         });
 
         this.searchClassroomCancel.addEventListener('click', function () {
-             scheduleAPI.searchClassroomCancel.style.display = 'none';
-             scheduleAPI.lectures.showAll();
-             scheduleAPI.clearInputs();
+            scheduleAPI.searchClassroomCancel.style.display = 'none';
+            scheduleAPI.lectures.showAll();
+            scheduleAPI.clearInputs();
         });
     },
     clearInputs: function () {
@@ -248,8 +239,8 @@ var scheduleAPI = {
 
         // обработчики на кнопки удаления
         var deleteButtons = scheduleAPI.schoolsList.querySelectorAll('.buttons__item--delete');
-        for (var i = 0; i < deleteButtons.length; i++) {
-            deleteButtons[i].addEventListener('click', function (e) {
+        for (var k = 0; k < deleteButtons.length; k++) {
+            deleteButtons[k].addEventListener('click', function (e) {
                 var item = e.currentTarget;
                 var row = item.parentElement.parentElement;
                 var schoolTitle = row.querySelector('.schools__col--title').innerText;           
@@ -264,8 +255,8 @@ var scheduleAPI = {
 
         // обработчики на кнопки редактирования
         var updateButtons = scheduleAPI.schoolsList.querySelectorAll('.buttons__item--update');
-        for (var i = 0; i < updateButtons.length; i++) {
-            updateButtons[i].addEventListener('click', function (e) {
+        for (var j = 0; j < updateButtons.length; j++) {
+            updateButtons[j].addEventListener('click', function (e) {
                 var item = e.currentTarget;
                 var row = item.parentElement.parentElement;
                 var schoolTitle = row.querySelector('.schools__col--title').innerText;
@@ -288,8 +279,8 @@ var scheduleAPI = {
 
         // обработчики на кнопки удаления
         var deleteButtons = scheduleAPI.classroomsList.querySelectorAll('.buttons__item--delete');
-        for (var i = 0; i < deleteButtons.length; i++) {
-            deleteButtons[i].addEventListener('click', function (e) {
+        for (var k = 0; k < deleteButtons.length; k++) {
+            deleteButtons[k].addEventListener('click', function (e) {
                 var item = e.currentTarget;
                 var row = item.parentElement.parentElement;
                 var classroomTitle = row.querySelector('.classrooms__col--title').innerText;           
@@ -304,8 +295,8 @@ var scheduleAPI = {
 
         // обработчики на кнопки редактирования
         var updateButtons = scheduleAPI.classroomsList.querySelectorAll('.buttons__item--update');
-        for (var i = 0; i < updateButtons.length; i++) {
-            updateButtons[i].addEventListener('click', function (e) {
+        for (var j = 0; j < updateButtons.length; j++) {
+            updateButtons[j].addEventListener('click', function (e) {
                 var item = e.currentTarget;
                 var row = item.parentElement.parentElement;
                 var classroomTitle = row.querySelector('.classrooms__col--title').innerText;
@@ -332,8 +323,8 @@ var scheduleAPI = {
 
         // обработчики на кнопки удаления
         var deleteButtons = scheduleAPI.scheduleList.querySelectorAll('.buttons__item--delete');
-        for (var i = 0; i < deleteButtons.length; i++) {
-            deleteButtons[i].addEventListener('click', function (e) {
+        for (var k = 0; k < deleteButtons.length; k++) {
+            deleteButtons[k].addEventListener('click', function (e) {
                 var item = e.currentTarget;
                 var row = item.parentElement.parentElement;
                 var lectureTitle = row.querySelector('.schedule__link').innerText;
@@ -347,8 +338,8 @@ var scheduleAPI = {
 
         // обработчики на кнопки редактирования
         var updateButtons = scheduleAPI.scheduleList.querySelectorAll('.buttons__item--update');
-        for (var i = 0; i < updateButtons.length; i++) {
-            updateButtons[i].addEventListener('click', function (e) {
+        for (var j = 0; j < updateButtons.length; j++) {
+            updateButtons[j].addEventListener('click', function (e) {
                 var item = e.currentTarget;
                 var row = item.parentElement.parentElement;
                 var lectureTitle = row.querySelector('.schedule__col--title').innerText;
@@ -401,7 +392,7 @@ var scheduleAPI = {
             var xhr = new XMLHttpRequest();
 
             xhr.open(method, request);
-            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.setRequestHeader('Content-type', 'application/json');
             xhr.responseType = 'json';
             xhr.send(data);
 
@@ -411,8 +402,8 @@ var scheduleAPI = {
                 } else {
                     resolve(xhr.response);
                 }
-            })
-        })
+            });
+        });
     },
     schools: {
         showAll: function () {
@@ -427,7 +418,7 @@ var scheduleAPI = {
         },
         addNew: function (data) {
             scheduleAPI.sendRequest('POST', '/schools', data).
-            then(function (response) {
+            then(function () {
                 scheduleAPI.schools.showAll();
             },
             function (response) {
@@ -438,10 +429,10 @@ var scheduleAPI = {
         },
         update: function (data) {
             scheduleAPI.sendRequest('PUT', '/schools:title', data).
-            then(function (response) {
+            then(function () {
                 scheduleAPI.schools.showAll();
             },
-            function () {
+            function (response) {
                 console.log('Не удалось сделать запрос');
                 console.log(response);
                 alert('Не удалось сделать запрос. ' + response.error);
@@ -449,7 +440,7 @@ var scheduleAPI = {
         },
         delete: function (data) {
             scheduleAPI.sendRequest('DELETE', '/schools:title', data).
-            then(function (response) {
+            then(function () {
                 scheduleAPI.schools.showAll();
             },
             function (response) {
@@ -473,7 +464,7 @@ var scheduleAPI = {
         },
         addNew: function (data) {
             scheduleAPI.sendRequest('POST', '/classrooms', data).
-            then(function (response) {
+            then(function () {
                 scheduleAPI.classrooms.showAll();
             },
             function (response) {
@@ -484,7 +475,7 @@ var scheduleAPI = {
         },
         update: function (data) {
             scheduleAPI.sendRequest('PUT', '/classrooms:title', data).
-            then(function (response) {
+            then(function () {
                 scheduleAPI.classrooms.showAll();
             },
             function (response) {
@@ -495,7 +486,7 @@ var scheduleAPI = {
         },
         delete: function (data) {
             scheduleAPI.sendRequest('DELETE', '/classrooms:title', data).
-            then(function (response) {
+            then(function () {
                 scheduleAPI.classrooms.showAll();
             },
             function (response) {
@@ -519,7 +510,7 @@ var scheduleAPI = {
         },
         addNew: function (data) {
             scheduleAPI.sendRequest('POST', '/lectures', data).
-            then(function (response) {
+            then(function () {
                 scheduleAPI.lectures.showAll();
             },
             function (response) {
@@ -530,7 +521,7 @@ var scheduleAPI = {
         },
         update: function (data) {
             scheduleAPI.sendRequest('PUT', '/lectures:title', data).
-            then(function (response) {
+            then(function () {
                 scheduleAPI.lectures.showAll();
             },
             function (response) {
@@ -541,7 +532,7 @@ var scheduleAPI = {
         },
         delete: function (data) {
             scheduleAPI.sendRequest('DELETE', '/lectures:title', data).
-            then(function (response) {
+            then(function () {
                 scheduleAPI.lectures.showAll();
             },
             function (response) {
